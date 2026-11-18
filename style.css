@@ -15,8 +15,8 @@ body, html {
     color: var(--text-color);
     background-color: var(--bg-color);
     line-height: 1.6;
+    overflow-x: hidden; 
 }
-
 
 ul { 
     list-style: none; 
@@ -35,14 +35,12 @@ a:hover {
     text-decoration: underline;
 }
 
-
 header {
     background-color: var(--bg-color);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
 }
-
 
 .bar {
     background-color: var(--bg-secondary);
@@ -53,7 +51,6 @@ header {
     color: #54595d;
 }
 
-
 .content {
     max-width: 1440px;
     margin: 2rem auto;
@@ -62,8 +59,8 @@ header {
     grid-template-areas: "sidebar main anchors";
     grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) minmax(0, 16rem);
     padding: 0 1.5rem;
+    box-sizing: border-box;
 }
-
 
 .sidebar {
     border-right: solid 1px var(--border-color);
@@ -93,9 +90,9 @@ header {
     color: var(--primary-color);
 }
 
-
 .main {
     max-width: 800px; 
+    min-width: 0; 
 }
 
 .main h1 {
@@ -104,6 +101,7 @@ header {
     margin-top: 0;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.5rem;
+    word-break: break-word;
 }
 
 .main h2 {
@@ -118,7 +116,6 @@ header {
     font-size: 1.05rem;
     color: #202122;
 }
-
 
 .anchors {
     border-left: solid 1px var(--border-color);
@@ -136,11 +133,16 @@ figure {
     padding: 1rem;
     border-radius: 8px;
     border: 1px solid var(--border-color);
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 figure img {
+    width: 100%;
     max-width: 100%;
     height: auto;
+    display: block;
+    margin: 0 auto;
     border-radius: 4px;
 }
 
@@ -148,18 +150,21 @@ figcaption {
     font-size: 0.875rem;
     color: #54595d;
     margin-top: 0.75rem;
+    word-break: break-word;
 }
 
 
 .video-container {
     position: relative;
     width: 100%;
+    max-width: 100%;
     padding-bottom: 56.25%; 
     height: 0;
     margin: 2rem 0;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
+    box-sizing: border-box;
 }
 
 .video-container iframe {
@@ -181,10 +186,11 @@ figcaption {
     color: #54595d;
     font-size: 0.9rem;
     margin-top: 4rem;
+    padding: 0 1rem;
+    text-align: center;
 }
 
-/* --- 4. Responsividade (Media Queries) --- */
-
+/* --- Media Queries --- */
 
 @media (max-width: 1024px) {
     .content {
@@ -201,7 +207,6 @@ figcaption {
         padding-top: 1.5rem;
     }
 }
-
 
 @media (max-width: 768px) {
     .content {
@@ -229,11 +234,22 @@ figcaption {
     header {
         padding: 1rem;
     }
+    
+    /* Ajuste de margens em telas menores para imagens e vídeos */
+    figure {
+        padding: 0.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .video-container {
+        margin: 1.5rem 0;
+    }
 }
 
 /* --- Estilos do Carrossel --- */
 .carousel-section {
     margin: 3rem 0;
+    max-width: 100%;
 }
 
 .carousel-section h2 {
@@ -247,6 +263,7 @@ figcaption {
     position: relative;
     display: flex;
     align-items: center;
+    max-width: 100%;
 }
 
 .carousel-track {
@@ -254,18 +271,17 @@ figcaption {
     gap: 1.5rem;
     overflow-x: auto;
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Esconde a barra de rolagem no Firefox */
+    scrollbar-width: none; 
     padding: 0.5rem 0;
     width: 100%;
 }
 
-/* Esconde a barra de rolagem no Chrome/Safari */
 .carousel-track::-webkit-scrollbar {
     display: none;
 }
 
 .carousel-item {
-    min-width: 280px;
+    min-width: 260px; 
     max-width: 280px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -275,6 +291,7 @@ figcaption {
     box-shadow: var(--shadow-sm);
     flex-shrink: 0;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .carousel-item img {
@@ -290,7 +307,6 @@ figcaption {
     margin-top: 0.5rem;
 }
 
-/* Botões de Navegação do Carrossel */
 .carousel-btn {
     position: absolute;
     z-index: 10;
@@ -311,16 +327,18 @@ figcaption {
 }
 
 .prev-btn {
-    left: -20px;
+    left: -10px;
 }
 
 .next-btn {
-    right: -20px;
+    right: -10px;
 }
 
-/* Esconde os botões em telas pequenas onde o toque do celular é melhor */
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .carousel-btn {
         display: none;
     }
-} 
+    
+    .carousel-item {
+        min-width: 240px;     }
+}
